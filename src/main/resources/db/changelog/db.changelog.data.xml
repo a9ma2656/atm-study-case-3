@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="load-update-data-account" author="made.agusadi@mitrais.com" context="test OR init" runOnChange="true"
+               dbms="mysql">
+        <loadUpdateData primaryKey="id"
+                        file="classpath:db/changelog/data/account.csv"
+                        tableName="account">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="pin" type="string"/>
+            <column name="balance" type="numeric"/>
+            <column name="account_number" type="string"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>
