@@ -18,6 +18,7 @@ public class Account {
     @Column(name = "account_number")
     private String accountNumber;
 
+    @Size(max = 100, message = "Name should not exceed 100 characters")
     @Column(name = "name")
     private String name;
 

@@ -1,5 +1,8 @@
 package com.cdc.atm.web.service;
 
+import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,11 +13,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class WelcomeServiceImpl implements WelcomeService {
 
+    private AccountRepository repository;
+
+    @Autowired
+    public WelcomeServiceImpl(AccountRepository repository) {
+        this.repository = repository;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean validateAccount(String accountNumber, String pin) {
-        return false;
+        Account account = repository.validateAccount(accountNumber, pin);
+        return account != null;
     }
 }
