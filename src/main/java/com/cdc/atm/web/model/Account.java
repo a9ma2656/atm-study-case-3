@@ -1,6 +1,7 @@
 package com.cdc.atm.web.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -13,6 +14,7 @@ public class Account {
     private Integer id;
 
     @Size(min = 6, max = 6, message = "Account Number should have 6 digits")
+    @Pattern(regexp = "^[0-9]+", message = "Account Number should only contains numbers")
     @Column(name = "account_number")
     private String accountNumber;
 
@@ -20,6 +22,7 @@ public class Account {
     private String name;
 
     @Size(min = 6, max = 6, message = "PIN should have 6 digits length")
+    @Pattern(regexp = "^[0-9]+", message = "PIN should only contains numbers")
     @Column(name = "pin")
     private String pin;
 
