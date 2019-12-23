@@ -16,6 +16,10 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
 
 atm:
   application:
