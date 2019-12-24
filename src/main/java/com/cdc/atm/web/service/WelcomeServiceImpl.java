@@ -26,6 +26,7 @@ public class WelcomeServiceImpl implements WelcomeService {
     @Override
     public boolean validateAccount(String accountNumber, String pin) {
         Account account = repository.validateAccount(accountNumber, pin);
+        System.out.println(account != null ? account.getBalance(): "Account is null");
         return account != null;
     }
 }
