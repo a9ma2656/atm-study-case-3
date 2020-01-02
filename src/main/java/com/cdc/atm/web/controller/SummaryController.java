@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cdc.atm.web.model.Transaction;
-
 /**
  * Provide controller for Summary screen
  *
@@ -31,7 +29,7 @@ public class SummaryController {
     }
 
     @PostMapping(value = "/summary")
-    public ModelAndView postSummaryPage(@Valid @ModelAttribute(value = Transaction.Metadata.MODEL) Summary summary,
+    public ModelAndView postSummaryPage(@Valid @ModelAttribute(value = Summary.Metadata.MODEL) Summary summary,
             BindingResult result, ModelMap model) {
         List<String> errors = new ArrayList<>();
         if (result.hasErrors()) {

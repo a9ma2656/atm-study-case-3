@@ -5,6 +5,8 @@ import com.cdc.atm.web.model.Account;
 import com.cdc.atm.web.model.Summary;
 import com.cdc.atm.web.model.Withdraw;
 import com.cdc.atm.web.service.AccountService;
+import com.cdc.atm.web.util.DateUtil;
+import com.cdc.atm.web.util.NumericUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -93,9 +95,9 @@ public class WithdrawController {
 
             // Populate withdraw summary details and go to Summary screen
             Summary summary = new Summary();
-            summary.setDate(new Date());
-            summary.setBalance(account.getBalance());
-            summary.setWithdraw(withdrawAmount);
+            summary.setDate(DateUtil.formatDateToString(new Date()));
+            summary.setBalance(NumericUtil.getPlainCurrencyFormat(account.getBalance()));
+            summary.setWithdraw(NumericUtil.getPlainCurrencyFormat(withdrawAmount));
             model.put(Summary.Metadata.MODEL, summary);
             return new ModelAndView("redirect:/summary", model);
         } else if (Withdraw.Option.OTHER.toString().equalsIgnoreCase(withdraw.getOption())) {

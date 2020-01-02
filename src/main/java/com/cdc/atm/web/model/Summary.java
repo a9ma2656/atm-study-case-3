@@ -1,12 +1,7 @@
 package com.cdc.atm.web.model;
 
-import com.cdc.atm.web.util.DateUtil;
-import com.cdc.atm.web.util.NumericUtil;
 import com.cdc.atm.web.validator.Pattern;
 import com.cdc.atm.web.validator.Size;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * Summary model data object
@@ -34,32 +29,11 @@ public class Summary {
 
     @Size(min = 1, max = 1, message = "Option should be 1 digit length")
     @Pattern(regexp = "[1-2]", message = "Invalid option")
-    private String     option;
+    private String option;
 
-    private Date       date;
-    private BigDecimal withdraw;
-    private BigDecimal balance;
-
-    public String getWebDate() {
-        if (this.date != null) {
-            return DateUtil.formatDateToString(this.date);
-        }
-        return "";
-    }
-
-    public String getWebWithdraw() {
-        if (this.withdraw != null) {
-            return NumericUtil.getPlainCurrencyFormat(this.withdraw);
-        }
-        return "";
-    }
-
-    public String getWebBalance() {
-        if (this.balance != null) {
-            return NumericUtil.getPlainCurrencyFormat(this.balance);
-        }
-        return "";
-    }
+    private String date;
+    private String withdraw;
+    private String balance;
 
     public String getOption() {
         return option;
@@ -69,27 +43,27 @@ public class Summary {
         this.option = option;
     }
 
-    public Date getDate() {
-        return date != null ? date : new Date();
+    public String getDate() {
+        return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public BigDecimal getWithdraw() {
+    public String getWithdraw() {
         return withdraw;
     }
 
-    public void setWithdraw(BigDecimal withdraw) {
+    public void setWithdraw(String withdraw) {
         this.withdraw = withdraw;
     }
 
-    public BigDecimal getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 }

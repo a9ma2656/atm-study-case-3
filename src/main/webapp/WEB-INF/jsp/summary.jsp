@@ -21,17 +21,17 @@
         <tr>
             <td>Date</td>
             <td>:</td>
-            <td><form:label path="webDate"/></td>
+            <td><form:label path="date"/></td>
         </tr>
         <tr>
             <td>Withdraw</td>
             <td>:</td>
-            <td>$<form:label path="webWithdraw"/></td>
+            <td>$<form:label path="withdraw"/></td>
         </tr>
         <tr>
             <td>Balance</td>
             <td>:</td>
-            <td>$<form:label path="webBalance"/></td>
+            <td>$<form:label path="balance"/></td>
         </tr>
     </table>
     <table>
