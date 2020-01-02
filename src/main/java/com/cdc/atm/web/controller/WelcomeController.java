@@ -1,7 +1,8 @@
 package com.cdc.atm.web.controller;
 
+import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.Account;
-import com.cdc.atm.web.service.WelcomeService;
+import com.cdc.atm.web.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,14 +15,21 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provide controller for Welcome screen
+ *
+ * @author Made.AgusaAdi@mitrais.com
+ */
 @Controller
 public class WelcomeController {
 
-    private WelcomeService service;
+    private AccountService   service;
+    private AccountComponent accountComponent;
 
     @Autowired
-    public WelcomeController(WelcomeService service) {
+    public WelcomeController(AccountService service, AccountComponent accountComponent) {
         this.service = service;
+        this.accountComponent = accountComponent;
     }
 
     @GetMapping(value = "/")
@@ -35,7 +43,8 @@ public class WelcomeController {
     }
 
     @PostMapping(value = "/welcome")
-    public ModelAndView postWelcomePage(@Valid @ModelAttribute(Account.Metadata.MODEL) Account account, BindingResult result, ModelMap model) {
+    public ModelAndView postWelcomePage(@Valid @ModelAttribute(Account.Metadata.MODEL) Account account,
+            BindingResult result, ModelMap model) {
         List<String> errors = new ArrayList<>();
         if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
@@ -52,6 +61,7 @@ public class WelcomeController {
             return new ModelAndView("welcome");
         }
 
-        return new ModelAndView("redirect:/withdraw");
+        accountComponent.setAccountNumber(account.getAccountNumber());
+        return new ModelAndView("redirect:/transaction");
     }
 }

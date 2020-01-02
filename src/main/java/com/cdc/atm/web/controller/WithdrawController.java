@@ -1,15 +1,93 @@
 package com.cdc.atm.web.controller;
 
+import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.model.Withdraw;
+import com.cdc.atm.web.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Provide controller for Withdraw screen
+ * 
+ * @author Made.AgusaAdi@mitrais.com
+ */
 @Controller
 public class WithdrawController {
+    private static final String ERROR_MESSAGE_INSUFFICIENT_BALANCE = "Insufficient balance $%s";
+
+    private AccountService      service;
+    private AccountComponent    accountComponent;
+
+    @Autowired
+    public WithdrawController(AccountService service, AccountComponent accountComponent) {
+        this.service = service;
+        this.accountComponent = accountComponent;
+    }
 
     @GetMapping(value = "/withdraw")
-    public String getWithdrawPage(@ModelAttribute(value = Account.Metadata.MODEL) Account account) {
-        return "withdraw";
+    public ModelAndView getWithdrawPage(@ModelAttribute(value = Withdraw.Metadata.MODEL) Withdraw withdraw) {
+        return new ModelAndView("withdraw");
+    }
+
+    @PostMapping(value = "/withdraw")
+    public ModelAndView postWithdrawPage(@Valid @ModelAttribute(value = Withdraw.Metadata.MODEL) Withdraw withdraw,
+            BindingResult result, ModelMap model) {
+        List<String> errors = new ArrayList<>();
+        if (result.hasErrors()) {
+            for (ObjectError error : result.getAllErrors()) {
+                errors.add(error.getDefaultMessage());
+            }
+            model.put("errors", errors);
+            return new ModelAndView("withdraw");
+        }
+
+        // Decide redirect page based on option (default to Transaction screen)
+        String redirectView;
+        if (Withdraw.WithdrawOption.DEDUCT_TEN_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                || Withdraw.WithdrawOption.DEDUCT_FIFTY_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                || Withdraw.WithdrawOption.DEDUCT_HUNDRED_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())) {
+            // Check insufficient Balance
+            String accountNumber = accountComponent.getAccountNumber();
+            System.out.println("accountNumber --- > " + accountNumber);
+
+            Account account = service.findByAccountNumber(accountNumber);
+            // Validate the balance is sufficient
+            if (Withdraw.WithdrawOption.DEDUCT_TEN_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                    && account.getBalance().compareTo(new BigDecimal(10)) == -1
+                    || Withdraw.WithdrawOption.DEDUCT_FIFTY_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                            && account.getBalance().compareTo(new BigDecimal(50)) == -1
+                    || Withdraw.WithdrawOption.DEDUCT_HUNDRED_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                            && account.getBalance().compareTo(new BigDecimal(100)) == -1) {
+                errors.add(String.format(ERROR_MESSAGE_INSUFFICIENT_BALANCE, account.getBalance()));
+            }
+
+            // Return to withdraw screen if the balance is insufficient
+            if (!errors.isEmpty()) {
+                model.put("errors", errors);
+                return new ModelAndView("withdraw");
+            }
+
+            // When the balance is sufficient, go to Summary screen
+            redirectView = "summary";
+        } else if (Withdraw.WithdrawOption.OTHER.toString().equalsIgnoreCase(withdraw.getOption())) {
+            redirectView = "otherWithdraw";
+        } else {
+            redirectView = "transaction";
+        }
+
+        return new ModelAndView("redirect:/" + redirectView);
     }
 }

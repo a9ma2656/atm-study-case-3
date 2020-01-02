@@ -17,7 +17,7 @@
             <td><form:input path="accountNumber"/></td>
         </tr>
         <tr>
-            <td>Enter PIM:</td>
+            <td>Enter PIN:</td>
             <td><form:input path="pin"/></td>
         </tr>
         <tr>
