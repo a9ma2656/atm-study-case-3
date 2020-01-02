@@ -13,6 +13,9 @@
 <form:form method="POST" action="/withdraw" modelAttribute="<%=Withdraw.Metadata.MODEL%>">
     <table>
         <tr>
+            <td colspan="2" height="50">&nbsp;</td>
+        </tr>
+        <tr>
             <td colspan="2">1. $10</td>
         </tr>
         <tr>

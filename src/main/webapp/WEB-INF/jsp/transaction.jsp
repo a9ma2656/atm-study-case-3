@@ -13,6 +13,9 @@
 <form:form method="POST" action="/transaction" modelAttribute="<%=Transaction.Metadata.MODEL%>">
     <table>
         <tr>
+            <td colspan="2" height="50">&nbsp;</td>
+        </tr>
+        <tr>
             <td colspan="2">1. Withdraw</td>
         </tr>
         <tr>

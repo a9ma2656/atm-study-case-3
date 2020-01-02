@@ -2,6 +2,7 @@ package com.cdc.atm.web.controller;
 
 import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.model.Welcome;
 import com.cdc.atm.web.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,17 +34,17 @@ public class WelcomeController {
     }
 
     @GetMapping(value = "/")
-    public ModelAndView getIndex(@ModelAttribute(value = Account.Metadata.MODEL) Account account) {
+    public ModelAndView getIndex(@ModelAttribute(value = Welcome.Metadata.MODEL) Welcome welcome) {
         return new ModelAndView("redirect:/welcome");
     }
 
     @GetMapping(value = "/welcome")
-    public ModelAndView getWelcomePage(@ModelAttribute(value = Account.Metadata.MODEL) Account account) {
+    public ModelAndView getWelcomePage(@ModelAttribute(value = Welcome.Metadata.MODEL) Welcome welcome) {
         return new ModelAndView("welcome");
     }
 
     @PostMapping(value = "/welcome")
-    public ModelAndView postWelcomePage(@Valid @ModelAttribute(Account.Metadata.MODEL) Account account,
+    public ModelAndView postWelcomePage(@Valid @ModelAttribute(Welcome.Metadata.MODEL) Welcome welcome,
             BindingResult result, ModelMap model) {
         List<String> errors = new ArrayList<>();
         if (result.hasErrors()) {
@@ -54,14 +55,14 @@ public class WelcomeController {
             return new ModelAndView("welcome");
         }
 
-        boolean isValidAccount = service.validateAccount(account.getAccountNumber(), account.getPin());
+        boolean isValidAccount = service.validateAccount(welcome.getAccountNumber(), welcome.getPin());
         if (!isValidAccount) {
             errors.add("Invalid Account Number/PIN");
             model.put("errors", errors);
             return new ModelAndView("welcome");
         }
 
-        accountComponent.setAccountNumber(account.getAccountNumber());
+        accountComponent.setAccountNumber(welcome.getAccountNumber());
         return new ModelAndView("redirect:/transaction");
     }
 }

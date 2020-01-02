@@ -1,12 +1,13 @@
 package com.cdc.atm.web.model;
 
-import com.cdc.atm.web.validator.Pattern;
-import com.cdc.atm.web.validator.Size;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
+/**
+ * Account persistent object
+ * 
+ * @author Made.AgusAdi@mitrais.com
+ */
 @Entity
 @Table(name = "account")
 public class Account {
@@ -15,28 +16,17 @@ public class Account {
     @Column(name = "id")
     private Integer    id;
 
-    @NotBlank(message = "Account Number is required")
-    @Size(min = 6, max = 6, message = "Account Number should have 6 digits")
-    @Pattern(regexp = "^[0-9]+", message = "Account Number should only contains numbers")
     @Column(name = "account_number")
     private String     accountNumber;
 
-    @Size(max = 100, message = "Name should not exceed 100 characters")
     @Column(name = "name")
     private String     name;
 
-    @NotBlank(message = "PIN is required")
-    @Size(min = 6, max = 6, message = "PIN should have 6 digits length")
-    @Pattern(regexp = "^[0-9]+", message = "PIN should only contains numbers")
     @Column(name = "pin")
     private String     pin;
 
     @Column(name = "balance")
     private BigDecimal balance;
-
-    public static class Metadata {
-        public static final String MODEL = "account";
-    }
 
     public Integer getId() {
         return id;

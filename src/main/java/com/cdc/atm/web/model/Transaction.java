@@ -3,12 +3,17 @@ package com.cdc.atm.web.model;
 import com.cdc.atm.web.validator.Pattern;
 import com.cdc.atm.web.validator.Size;
 
+/**
+ * Transaction model data object
+ *
+ * @author Made.AgusAdi@mitrais.com
+ */
 public class Transaction {
-    public enum TrxOption {
+    public enum Option {
         WITHDRAW(1), FUND_TRANSFER(2), EXIT(3);
         private int option;
 
-        TrxOption(int option) {
+        Option(int option) {
             this.option = option;
         }
 

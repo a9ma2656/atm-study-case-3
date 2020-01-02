@@ -3,12 +3,19 @@ package com.cdc.atm.web.model;
 import com.cdc.atm.web.validator.Pattern;
 import com.cdc.atm.web.validator.Size;
 
+/**
+ * Withdraw model data object
+ *
+ * @author Made.AgusAdi@mitrais.com
+ */
 public class Withdraw {
-    public enum WithdrawOption {
+    public static final String ERROR_MESSAGE_INSUFFICIENT_BALANCE = "Insufficient balance $%s";
+
+    public enum Option {
         DEDUCT_TEN_DOLLARS(1), DEDUCT_FIFTY_DOLLARS(2), DEDUCT_HUNDRED_DOLLARS(3), OTHER(4), BACK(5);
         private int option;
 
-        WithdrawOption(int option) {
+        Option(int option) {
             this.option = option;
         }
 

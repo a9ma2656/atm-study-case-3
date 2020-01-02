@@ -23,4 +23,13 @@ public interface AccountService {
      * @return Account entity
      */
     Account findByAccountNumber(String accountNumber);
+
+    /**
+     * To update user account entity
+     *
+     * @param account
+     *            The account entity
+     * @return Account entity
+     */
+    Account updateAccount(Account account);
 }

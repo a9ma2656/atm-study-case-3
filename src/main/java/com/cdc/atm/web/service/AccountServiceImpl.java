@@ -34,8 +34,18 @@ public class AccountServiceImpl implements AccountService {
     /**
      * {@inheritDoc}
      */
+    @Transactional(readOnly = true)
     @Override
     public Account findByAccountNumber(String accountNumber) {
         return repository.findByAccountNumber(accountNumber);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional
+    @Override
+    public Account updateAccount(Account account) {
+        return repository.save(account);
     }
 }

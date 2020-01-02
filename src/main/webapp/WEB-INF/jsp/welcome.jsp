@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.cdc.atm.web.model.Account" %>
+<%@ page import="com.cdc.atm.web.model.Welcome" %>
 
 <html lang="en">
 
@@ -10,8 +10,11 @@
 
 <body>
 <div style="color: darkred">${errors}</div>
-<form:form method="POST" action="/welcome" modelAttribute="<%=Account.Metadata.MODEL%>">
+<form:form method="POST" action="/welcome" modelAttribute="<%=Welcome.Metadata.MODEL%>">
     <table>
+        <tr>
+            <td colspan="2" height="50">&nbsp;</td>
+        </tr>
         <tr>
             <td>Enter Account Number:</td>
             <td><form:input path="accountNumber"/></td>

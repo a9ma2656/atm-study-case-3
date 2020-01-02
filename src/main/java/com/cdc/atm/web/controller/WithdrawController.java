@@ -2,6 +2,7 @@ package com.cdc.atm.web.controller;
 
 import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.model.Summary;
 import com.cdc.atm.web.model.Withdraw;
 import com.cdc.atm.web.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,10 +28,9 @@ import java.util.List;
  */
 @Controller
 public class WithdrawController {
-    private static final String ERROR_MESSAGE_INSUFFICIENT_BALANCE = "Insufficient balance $%s";
 
-    private AccountService      service;
-    private AccountComponent    accountComponent;
+    private AccountService   service;
+    private AccountComponent accountComponent;
 
     @Autowired
     public WithdrawController(AccountService service, AccountComponent accountComponent) {
@@ -56,22 +57,26 @@ public class WithdrawController {
 
         // Decide redirect page based on option (default to Transaction screen)
         String redirectView;
-        if (Withdraw.WithdrawOption.DEDUCT_TEN_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
-                || Withdraw.WithdrawOption.DEDUCT_FIFTY_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
-                || Withdraw.WithdrawOption.DEDUCT_HUNDRED_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())) {
+        if (Withdraw.Option.DEDUCT_TEN_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                || Withdraw.Option.DEDUCT_FIFTY_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
+                || Withdraw.Option.DEDUCT_HUNDRED_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())) {
             // Check insufficient Balance
             String accountNumber = accountComponent.getAccountNumber();
-            System.out.println("accountNumber --- > " + accountNumber);
-
             Account account = service.findByAccountNumber(accountNumber);
+
+            // Get the selected withdraw
+            BigDecimal withdrawAmount;
+            if (Withdraw.Option.DEDUCT_TEN_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())) {
+                withdrawAmount = new BigDecimal(10);
+            } else if (Withdraw.Option.DEDUCT_FIFTY_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())) {
+                withdrawAmount = new BigDecimal(50);
+            } else {
+                withdrawAmount = new BigDecimal(100);
+            }
+
             // Validate the balance is sufficient
-            if (Withdraw.WithdrawOption.DEDUCT_TEN_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
-                    && account.getBalance().compareTo(new BigDecimal(10)) == -1
-                    || Withdraw.WithdrawOption.DEDUCT_FIFTY_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
-                            && account.getBalance().compareTo(new BigDecimal(50)) == -1
-                    || Withdraw.WithdrawOption.DEDUCT_HUNDRED_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())
-                            && account.getBalance().compareTo(new BigDecimal(100)) == -1) {
-                errors.add(String.format(ERROR_MESSAGE_INSUFFICIENT_BALANCE, account.getBalance()));
+            if (account.getBalance().compareTo(withdrawAmount) == -1) {
+                errors.add(String.format(Withdraw.ERROR_MESSAGE_INSUFFICIENT_BALANCE, account.getBalance()));
             }
 
             // Return to withdraw screen if the balance is insufficient
@@ -80,9 +85,20 @@ public class WithdrawController {
                 return new ModelAndView("withdraw");
             }
 
-            // When the balance is sufficient, go to Summary screen
-            redirectView = "summary";
-        } else if (Withdraw.WithdrawOption.OTHER.toString().equalsIgnoreCase(withdraw.getOption())) {
+            // When the balance is sufficient, deduct the user balance
+            BigDecimal balance = account.getBalance();
+            BigDecimal newBalance = balance.subtract(withdrawAmount);
+            account.setBalance(newBalance);
+            service.updateAccount(account);
+
+            // Populate withdraw summary details and go to Summary screen
+            Summary summary = new Summary();
+            summary.setDate(new Date());
+            summary.setBalance(account.getBalance());
+            summary.setWithdraw(withdrawAmount);
+            model.put(Summary.Metadata.MODEL, summary);
+            return new ModelAndView("redirect:/summary", model);
+        } else if (Withdraw.Option.OTHER.toString().equalsIgnoreCase(withdraw.getOption())) {
             redirectView = "otherWithdraw";
         } else {
             redirectView = "transaction";
