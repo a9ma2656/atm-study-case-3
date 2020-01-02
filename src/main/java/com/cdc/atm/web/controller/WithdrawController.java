@@ -78,7 +78,7 @@ public class WithdrawController {
 
             // Validate the balance is sufficient
             if (account.getBalance().compareTo(withdrawAmount) == -1) {
-                errors.add(String.format(Withdraw.ERROR_MESSAGE_INSUFFICIENT_BALANCE, account.getBalance()));
+                errors.add(String.format(Withdraw.ERROR_MESSAGE_INSUFFICIENT_BALANCE, withdrawAmount));
             }
 
             // Return to withdraw screen if the balance is insufficient
