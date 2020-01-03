@@ -45,7 +45,7 @@ public class FundTransferController {
 
     @PostMapping(value = "/fundTransfer")
     public ModelAndView postFundTransferPage(
-            @Valid @ModelAttribute(value = Transaction.Metadata.MODEL) FundTransfer fundTransfer, BindingResult result,
+            @Valid @ModelAttribute(value = FundTransfer.Metadata.MODEL) FundTransfer fundTransfer, BindingResult result,
             ModelMap model) {
         List<String> errors = new ArrayList<>();
         String page = fundTransfer.getPage();
