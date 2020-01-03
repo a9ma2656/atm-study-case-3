@@ -127,7 +127,7 @@ public class FundTransferController {
                 fundTransferSummary.setTransferAmount(NumericUtil.getPlainCurrencyFormat(transferAmount));
                 fundTransferSummary.setReferenceNumber(fundTransfer.getReferenceNumber());
                 model.addAttribute(FundTransferSummary.Metadata.MODEL, fundTransferSummary);
-                return new ModelAndView("redirect:/fundTransferSummary", model);
+                return new ModelAndView("fundTransferSummary", model);
             } else {
                 // Cancel fund transfer and redirect to transaction screen
                 redirectView = "transaction";

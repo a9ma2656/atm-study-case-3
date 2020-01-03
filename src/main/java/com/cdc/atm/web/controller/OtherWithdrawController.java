@@ -86,6 +86,6 @@ public class OtherWithdrawController {
         summary.setBalance(NumericUtil.getPlainCurrencyFormat(account.getBalance()));
         summary.setWithdraw(NumericUtil.getPlainCurrencyFormat(withdrawAmount));
         model.addAttribute(Summary.Metadata.MODEL, summary);
-        return new ModelAndView("redirect:/summary", model);
+        return new ModelAndView("summary", model);
     }
 }

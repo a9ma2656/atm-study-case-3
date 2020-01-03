@@ -96,7 +96,7 @@ public class WithdrawController {
             summary.setBalance(NumericUtil.getPlainCurrencyFormat(account.getBalance()));
             summary.setWithdraw(NumericUtil.getPlainCurrencyFormat(withdrawAmount));
             model.addAttribute(Summary.Metadata.MODEL, summary);
-            return new ModelAndView("redirect:/summary", model);
+            return new ModelAndView("summary", model);
         } else if (Withdraw.Option.OTHER.toString().equalsIgnoreCase(withdraw.getOption())) {
             redirectView = "otherWithdraw";
         } else {
