@@ -6,10 +6,11 @@
 
 <head>
     <title>ATM - Other Withdraw Screen</title>
+    <link href="styles/atm.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-<div style="color: darkred">${errors}</div>
+<div class="error-text">${errors}</div>
 <form:form method="POST" action="/otherWithdraw" modelAttribute="<%=OtherWithdraw.Metadata.MODEL%>">
     <table>
         <tr>

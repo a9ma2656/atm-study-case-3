@@ -1,0 +1,24 @@
+body {
+    font: 11px Verdana;
+    color: #000000;
+    scrollbar-face-color: #60c072;
+    scrollbar-highlight-color: #029c0a;
+    scrollbar-shadow-color: #029c0a;
+    scrollbar-3dlight-color: #b4f2bc;
+    scrollbar-arrow-color: #ffffff;
+    scrollbar-track-color: #b4f2bc;
+    scrollbar-darkshadow-color: #029c0a;
+    background: #ffffff;
+}
+
+td {
+    font: 13px Verdana;
+    color: #000000;
+}
+
+.error-text {
+    font-family: Verdana;
+    font-size: 15px;
+    font-weight: normal;
+    color: darkred;
+}

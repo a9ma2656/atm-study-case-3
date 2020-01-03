@@ -6,10 +6,11 @@
 
 <head>
     <title>ATM - Fund Transfer Screen 2</title>
+    <link href="styles/atm.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-<div style="color: darkred">${errors}</div>
+<div class="error-text">${errors}</div>
 <form:form method="POST" action="/fundTransfer" modelAttribute="<%=FundTransfer.Metadata.MODEL%>">
     <input id="page" name="page" type="hidden" value="<%=FundTransfer.Page.FUND_TRANSFER_PAGE_2.toString()%>"/>
     <form:hidden path="accountNumber"/>
