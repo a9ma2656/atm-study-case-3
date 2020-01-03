@@ -1,6 +1,8 @@
 package com.cdc.atm.web.controller;
 
+import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,8 +24,19 @@ import java.util.List;
 @Controller
 public class TransactionController {
 
+    private AccountComponent accountComponent;
+
+    @Autowired
+    public TransactionController(AccountComponent accountComponent) {
+        this.accountComponent = accountComponent;
+    }
+
     @GetMapping(value = "/transaction")
     public ModelAndView getTransactionPage(@ModelAttribute(value = Transaction.Metadata.MODEL) Transaction account) {
+        if (accountComponent == null || accountComponent.getAccountNumber() == null
+                || "".equals(accountComponent.getAccountNumber().trim())) {
+            return new ModelAndView("redirect:/welcome");
+        }
         return new ModelAndView("transaction");
     }
 

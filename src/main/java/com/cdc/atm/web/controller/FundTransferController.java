@@ -41,6 +41,10 @@ public class FundTransferController {
     @GetMapping(value = "/fundTransfer")
     public ModelAndView getFundTransferPage(
             @ModelAttribute(value = FundTransfer.Metadata.MODEL) FundTransfer fundTransfer) {
+        if (accountComponent == null || accountComponent.getAccountNumber() == null
+                || "".equals(accountComponent.getAccountNumber().trim())) {
+            return new ModelAndView("redirect:/welcome");
+        }
         return new ModelAndView("fundTransfer1");
     }
 

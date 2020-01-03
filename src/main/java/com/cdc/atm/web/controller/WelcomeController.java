@@ -39,6 +39,7 @@ public class WelcomeController {
 
     @GetMapping(value = "/welcome")
     public ModelAndView getWelcomePage(@ModelAttribute(value = Welcome.Metadata.MODEL) Welcome welcome) {
+        accountComponent.setAccountNumber(null);
         return new ModelAndView("welcome");
     }
 

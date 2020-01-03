@@ -45,6 +45,10 @@ public class OtherWithdrawController {
     @GetMapping(value = "/otherWithdraw")
     public ModelAndView getOtherWithdrawPage(
             @ModelAttribute(value = OtherWithdraw.Metadata.MODEL) OtherWithdraw otherWithdraw) {
+        if (accountComponent == null || accountComponent.getAccountNumber() == null
+                || "".equals(accountComponent.getAccountNumber().trim())) {
+            return new ModelAndView("redirect:/welcome");
+        }
         return new ModelAndView("otherWithdraw");
     }
 

@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.Summary;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,8 +25,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class SummaryController {
 
+    private AccountComponent accountComponent;
+
+    @Autowired
+    public SummaryController(AccountComponent accountComponent) {
+        this.accountComponent = accountComponent;
+    }
+
     @GetMapping(value = "/summary")
     public ModelAndView getSummaryPage(@ModelAttribute(value = Summary.Metadata.MODEL) Summary summary) {
+        if (accountComponent == null || accountComponent.getAccountNumber() == null
+                || "".equals(accountComponent.getAccountNumber().trim())) {
+            return new ModelAndView("redirect:/welcome");
+        }
         return new ModelAndView("summary");
     }
 

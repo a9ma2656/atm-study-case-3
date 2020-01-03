@@ -1,12 +1,8 @@
 package com.cdc.atm.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.Valid;
-
 import com.cdc.atm.web.component.AccountComponent;
-import com.cdc.atm.web.model.FundTransferSummary;
+import com.cdc.atm.web.model.TransactionHistory;
+import com.cdc.atm.web.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,34 +13,41 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Provide controller for Fund Transfer Summary screen
+ * Provide controller for Transaction history screen
  *
  * @author Made.AgusaAdi@mitrais.com
  */
 @Controller
-public class FundTransferSummaryController {
+public class TransactionHistoryController {
 
-    private AccountComponent accountComponent;
+    private TransactionService service;
+    private AccountComponent   accountComponent;
 
     @Autowired
-    public FundTransferSummaryController(AccountComponent accountComponent) {
+    public TransactionHistoryController(TransactionService service, AccountComponent accountComponent) {
+        this.service = service;
         this.accountComponent = accountComponent;
     }
 
-    @GetMapping(value = "/fundTransferSummary")
-    public ModelAndView getSummaryPage(
-            @ModelAttribute(value = FundTransferSummary.Metadata.MODEL) FundTransferSummary fundTransferSummary) {
+    @GetMapping(value = "/transactionHistory")
+    public ModelAndView getTransactionPage(
+            @ModelAttribute(value = TransactionHistory.Metadata.MODEL) TransactionHistory transactionHistory) {
         if (accountComponent == null || accountComponent.getAccountNumber() == null
                 || "".equals(accountComponent.getAccountNumber().trim())) {
             return new ModelAndView("redirect:/welcome");
         }
-        return new ModelAndView("fundTransferSummary");
+
+        return new ModelAndView("transactionHistory");
     }
 
-    @PostMapping(value = "/fundTransferSummary")
-    public ModelAndView postSummaryPage(
-            @Valid @ModelAttribute(value = FundTransferSummary.Metadata.MODEL) FundTransferSummary fundTransferSummary,
+    @PostMapping(value = "/transactionHistory")
+    public ModelAndView postTransactionPage(
+            @Valid @ModelAttribute(value = TransactionHistory.Metadata.MODEL) TransactionHistory transactionHistory,
             BindingResult result, ModelMap model) {
         List<String> errors = new ArrayList<>();
         if (result.hasErrors()) {
@@ -52,15 +55,17 @@ public class FundTransferSummaryController {
                 errors.add(error.getDefaultMessage());
             }
             model.put("errors", errors);
-            return new ModelAndView("fundTransferSummary");
+            return new ModelAndView("transactionHistory");
         }
 
         // Decide redirect page based on option (default to Welcome page)
         String redirectView;
-        if (FundTransferSummary.Option.TRANSACTION.toString().equalsIgnoreCase(fundTransferSummary.getOption())) {
-            redirectView = "transaction";
+        if (TransactionHistory.Option.LAST_10_TRX.toString().equalsIgnoreCase(transactionHistory.getOption())) {
+            return new ModelAndView("transactionHistory", model);
+        } else if (TransactionHistory.Option.TODAY_TRX.toString().equalsIgnoreCase(transactionHistory.getOption())) {
+            return new ModelAndView("transactionHistory", model);
         } else {
-            redirectView = "welcome";
+            redirectView = "transaction";
         }
 
         return new ModelAndView("redirect:/" + redirectView);
