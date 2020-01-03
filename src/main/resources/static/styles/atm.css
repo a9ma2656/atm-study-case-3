@@ -4,15 +4,25 @@ body {
     background: #ffffff;
 }
 
+th {
+    font: 13px Verdana;
+    color: #000000;
+}
+
 td {
     font: 13px Verdana;
     color: #000000;
+}
+
+.table-header {
+    background-color: #1a8fb9;
 }
 
 .table-form {
     background-color: #efefef;
     padding: 20px;
 }
+
 .error-text {
     font-family: Verdana;
     font-size: 15px;

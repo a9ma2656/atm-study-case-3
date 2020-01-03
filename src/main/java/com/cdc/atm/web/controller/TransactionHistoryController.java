@@ -2,6 +2,7 @@ package com.cdc.atm.web.controller;
 
 import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.TransactionHistory;
+import com.cdc.atm.web.model.entity.Transaction;
 import com.cdc.atm.web.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,8 +62,16 @@ public class TransactionHistoryController {
         // Decide redirect page based on option (default to Welcome page)
         String redirectView;
         if (TransactionHistory.Option.LAST_10_TRX.toString().equalsIgnoreCase(transactionHistory.getOption())) {
+            List<Transaction> lastTenTransactions = service.getLastTenTransaction(accountComponent.getAccountNumber());
+            if (!lastTenTransactions.isEmpty()) {
+                model.put("listTransactions", lastTenTransactions);
+            }
             return new ModelAndView("transactionHistory", model);
         } else if (TransactionHistory.Option.TODAY_TRX.toString().equalsIgnoreCase(transactionHistory.getOption())) {
+            List<Transaction> todayTransactions = service.getTodayTransaction(accountComponent.getAccountNumber());
+            if (!todayTransactions.isEmpty()) {
+                model.put("listTransactions", todayTransactions);
+            }
             return new ModelAndView("transactionHistory", model);
         } else {
             redirectView = "transaction";
