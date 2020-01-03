@@ -1,6 +1,6 @@
 package com.cdc.atm.web.service;
 
-import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.model.entity.Account;
 
 import java.math.BigDecimal;
 
@@ -55,7 +55,10 @@ public interface AccountService {
      *            the destination account number
      * @param transferAmount
      *            the transfer amount
+     * @param referenceNumber
+     *            the reference number
      * @return the updated source account details
      */
-    Account fundTransfer(String sourceAccountNumber, String destAccountNumber, BigDecimal transferAmount);
+    Account fundTransfer(String sourceAccountNumber, String destAccountNumber, BigDecimal transferAmount,
+            String referenceNumber);
 }

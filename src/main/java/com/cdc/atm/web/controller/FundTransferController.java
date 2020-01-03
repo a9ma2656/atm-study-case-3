@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.*;
+import com.cdc.atm.web.model.entity.Account;
 import com.cdc.atm.web.service.AccountService;
 import com.cdc.atm.web.util.NumericUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +119,8 @@ public class FundTransferController {
             if (FundTransfer.Option.CONFIRM_TRX.toString().equalsIgnoreCase(fundTransfer.getOption())) {
                 // When the balance is sufficient, deduct the user balance
                 BigDecimal transferAmount = new BigDecimal(fundTransfer.getTransferAmount());
-                service.fundTransfer(account.getAccountNumber(), fundTransfer.getAccountNumber(), transferAmount);
+                service.fundTransfer(account.getAccountNumber(), fundTransfer.getAccountNumber(), transferAmount,
+                        fundTransfer.getReferenceNumber());
 
                 // Populate withdraw summary details and go to Summary screen
                 FundTransferSummary fundTransferSummary = new FundTransferSummary();

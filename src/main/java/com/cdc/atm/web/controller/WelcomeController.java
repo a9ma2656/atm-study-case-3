@@ -1,7 +1,6 @@
 package com.cdc.atm.web.controller;
 
 import com.cdc.atm.web.component.AccountComponent;
-import com.cdc.atm.web.model.Account;
 import com.cdc.atm.web.model.Welcome;
 import com.cdc.atm.web.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;

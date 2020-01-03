@@ -19,4 +19,24 @@
             <column name="account_number" type="varchar(6)"/>
         </createTable>
     </changeSet>
+    <changeSet author="made.agusadi@mitrais.com" dbms="mysql" id="create-table-transaction">
+        <createTable tableName="transaction">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="account_number" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trx_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trx_type" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="number"/>
+            <column name="balance" type="number"/>
+            <column name="destination_account_number" type="varchar(6)"/>
+            <column name="reference_number" type="varchar(6)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

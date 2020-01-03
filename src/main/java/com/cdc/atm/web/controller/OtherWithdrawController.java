@@ -8,7 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.cdc.atm.web.component.AccountComponent;
-import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.model.entity.Account;
 import com.cdc.atm.web.model.OtherWithdraw;
 import com.cdc.atm.web.model.Summary;
 import com.cdc.atm.web.model.Withdraw;

@@ -1,7 +1,7 @@
 package com.cdc.atm.web.controller;
 
 import com.cdc.atm.web.component.AccountComponent;
-import com.cdc.atm.web.model.Account;
+import com.cdc.atm.web.model.entity.Account;
 import com.cdc.atm.web.model.Summary;
 import com.cdc.atm.web.model.Withdraw;
 import com.cdc.atm.web.service.AccountService;

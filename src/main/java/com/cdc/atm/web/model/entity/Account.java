@@ -1,4 +1,4 @@
-package com.cdc.atm.web.model;
+package com.cdc.atm.web.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer    id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long       id;
 
     @Column(name = "account_number")
     private String     accountNumber;
@@ -28,11 +28,11 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
