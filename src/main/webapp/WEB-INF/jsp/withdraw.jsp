@@ -7,6 +7,13 @@
 <head>
     <title>ATM - Withdraw Screen</title>
     <link href="styles/atm.css" rel="stylesheet" type="text/css">
+    <script src="scripts/jquery.js" lang="javascript"></script>
+    <script src="scripts/atm.js" lang="javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setFocusById(["submit"]);
+        });
+    </script>
 </head>
 
 <body>
@@ -33,7 +40,7 @@
             <td><form:input path="option"/></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Submit"/></td>
+            <td colspan="2"><input type="submit" value="Submit" id="submit"/></td>
         </tr>
     </table>
 </form:form>

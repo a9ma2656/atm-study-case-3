@@ -7,6 +7,13 @@
 <head>
     <title>ATM - Fund Transfer Summary Screen</title>
     <link href="styles/atm.css" rel="stylesheet" type="text/css">
+    <script src="scripts/jquery.js" lang="javascript"></script>
+    <script src="scripts/atm.js" lang="javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setFocusById(["submit"]);
+        });
+    </script>
 </head>
 
 <body>
@@ -54,7 +61,7 @@
             <td colspan="2"><form:input path="option"/></td>
         </tr>
         <tr>
-            <td colspan="3"><input type="submit" value="Submit"/></td>
+            <td colspan="3"><input type="submit" value="Submit" id="submit"/></td>
         </tr>
     </table>
 </form:form>
