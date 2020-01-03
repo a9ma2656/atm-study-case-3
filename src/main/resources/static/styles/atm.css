@@ -1,13 +1,6 @@
 body {
     font: 11px Verdana;
     color: #000000;
-    scrollbar-face-color: #60c072;
-    scrollbar-highlight-color: #029c0a;
-    scrollbar-shadow-color: #029c0a;
-    scrollbar-3dlight-color: #b4f2bc;
-    scrollbar-arrow-color: #ffffff;
-    scrollbar-track-color: #b4f2bc;
-    scrollbar-darkshadow-color: #029c0a;
     background: #ffffff;
 }
 
@@ -16,9 +9,36 @@ td {
     color: #000000;
 }
 
+.table-form {
+    background-color: #efefef;
+    padding: 20px;
+}
 .error-text {
     font-family: Verdana;
     font-size: 15px;
     font-weight: normal;
     color: darkred;
+    padding-bottom: 20px;
+}
+
+input[type=submit] {
+    background-color: #1a8fb9;
+    color: #FFFFFF;
+    vertical-align: bottom;
+    border: 1px double #1a8fb9;
+    margin-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow: visible;
+    cursor: hand;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+input[type=text] {
+    padding-left: 5px;
+}
+
+input[type=text]:focus {
+    background-color: #97ccdc
 }

@@ -12,10 +12,7 @@
 <body>
 <div class="error-text">${errors}</div>
 <form:form method="POST" action="/welcome" modelAttribute="<%=Welcome.Metadata.MODEL%>">
-    <table>
-        <tr>
-            <td colspan="2" height="50">&nbsp;</td>
-        </tr>
+    <table class="table-form">
         <tr>
             <td>Enter Account Number:</td>
             <td><form:input path="accountNumber"/></td>
@@ -25,7 +22,7 @@
             <td><form:input path="pin"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/></td>
+            <td colspan="2"><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>

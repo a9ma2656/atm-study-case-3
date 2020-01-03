@@ -12,10 +12,7 @@
 <body>
 <div class="error-text">${errors}</div>
 <form:form method="POST" action="/withdraw" modelAttribute="<%=Withdraw.Metadata.MODEL%>">
-    <table>
-        <tr>
-            <td colspan="2" height="50">&nbsp;</td>
-        </tr>
+    <table class="table-form">
         <tr>
             <td colspan="2">1. $10</td>
         </tr>
@@ -36,7 +33,7 @@
             <td><form:input path="option"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/></td>
+            <td colspan="2"><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>

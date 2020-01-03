@@ -13,10 +13,7 @@
 <div class="error-text">${errors}</div>
 <form:form method="POST" action="/fundTransfer" modelAttribute="<%=FundTransfer.Metadata.MODEL%>">
     <input id="page" name="page" type="hidden" value="<%=FundTransfer.Page.FUND_TRANSFER_PAGE_4.toString()%>"/>
-    <table>
-        <tr>
-            <td colspan="3" height="50">&nbsp;</td>
-        </tr>
+    <table class="table-form">
         <tr>
             <td colspan="3">Transfer Confirmation</td>
         </tr>
@@ -38,22 +35,20 @@
             <td><form:input path="referenceNumber" readonly="true"
                             style="border: none; background-color: transparent;"/></td>
         </tr>
-    </table>
-    <table>
         <tr>
-            <td colspan="2" height="50">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="2">1. Confirm Trx</td>
+            <td colspan="3">1. Confirm Trx</td>
         </tr>
         <tr>
-            <td colspan="2">2. Cancel Trx</td>
+            <td colspan="3">2. Cancel Trx</td>
         <tr>
             <td>Choose option[2]:</td>
-            <td><form:input path="option"/></td>
+            <td colspan="2"><form:input path="option"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/></td>
+            <td colspan="3"><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>

@@ -12,10 +12,7 @@
 <body>
 <div class="error-text">${errors}</div>
 <form:form method="POST" action="/fundTransferSummary" modelAttribute="<%=FundTransferSummary.Metadata.MODEL%>">
-    <table>
-        <tr>
-            <td colspan="3" height="50">&nbsp;</td>
-        </tr>
+    <table class="table-form">
         <tr>
             <td colspan="3">Fund Transfer Summary</td>
         </tr>
@@ -42,23 +39,21 @@
             <td>:</td>
             <td>$<form:input path="balance" readonly="true" style="border: none; background-color: transparent;"/></td>
         </tr>
-    </table>
-    <table>
         <tr>
-            <td colspan="2" height="50">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="2">1. Transaction</td>
+            <td colspan="3">1. Transaction</td>
         </tr>
         <tr>
-            <td colspan="2">2. Exit</td>
+            <td colspan="3">2. Exit</td>
         </tr>
         <tr>
             <td>Choose option[2]:</td>
-            <td><form:input path="option"/></td>
+            <td colspan="2"><form:input path="option"/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/></td>
+            <td colspan="3"><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>

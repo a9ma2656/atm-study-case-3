@@ -15,10 +15,7 @@
     <input id="page" name="page" type="hidden" value="<%=FundTransfer.Page.FUND_TRANSFER_PAGE_3.toString()%>"/>
     <form:hidden path="accountNumber"/>
     <form:hidden path="transferAmount"/>
-    <table>
-        <tr>
-            <td colspan="2" height="50">&nbsp;</td>
-        </tr>
+    <table class="table-form">
         <tr>
             <td>Reference Number:</td>
             <td><form:input path="referenceNumber"/></td>
@@ -27,7 +24,7 @@
             <td colspan="2">Press enter to continue</td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit"/></td>
+            <td colspan="2"><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>
