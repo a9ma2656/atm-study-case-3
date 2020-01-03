@@ -3,8 +3,6 @@ package com.cdc.atm.web.model;
 import com.cdc.atm.web.validator.Max;
 import com.cdc.atm.web.validator.Numeric;
 
-import javax.validation.constraints.NotBlank;
-
 /**
  * Other Withdraw model data object
  *
@@ -16,7 +14,6 @@ public class OtherWithdraw {
         public static final String MODEL = "otherWithdraw";
     }
 
-    @NotBlank(message = "Amount to withdraw is required")
     @Numeric(message = "Invalid amount", multiply = "10")
     @Max(message = "Maximum amount to withdraw is $1000", value = "1000")
     private String withdraw;

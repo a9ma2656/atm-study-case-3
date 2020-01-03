@@ -61,6 +61,11 @@ public class OtherWithdrawController {
             return new ModelAndView("otherWithdraw");
         }
 
+        // When the amount to withdraw is not set, redirect to transaction screen
+        if (otherWithdraw.getWithdraw() == null || "".equals(otherWithdraw.getWithdraw())) {
+            return new ModelAndView("redirect:/transaction");
+        }
+
         // Check insufficient Balance
         String accountNumber = accountComponent.getAccountNumber();
         Account account = service.findByAccountNumber(accountNumber);
