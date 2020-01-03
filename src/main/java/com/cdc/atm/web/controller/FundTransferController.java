@@ -49,12 +49,13 @@ public class FundTransferController {
             ModelMap model) {
         List<String> errors = new ArrayList<>();
         String page = fundTransfer.getPage();
+        String fundTransferView = "fundTransfer" + page;
         if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
                 errors.add(error.getDefaultMessage());
             }
             model.put("errors", errors);
-            return new ModelAndView("fundTransfer" + page);
+            return new ModelAndView(fundTransferView);
         }
 
         // Get account details
@@ -62,7 +63,7 @@ public class FundTransferController {
 
         String redirectView;
         // Handling request per screen
-        if ("1".equals(page)) {
+        if (FundTransfer.Page.FUND_TRANSFER_PAGE_1.toString().equals(page)) {
             if (fundTransfer.getAccountNumber() != null && !"".equals(fundTransfer.getAccountNumber().trim())) {
                 // Validate account exists and does not equal to source account
                 Account targetAccount = service.findByAccountNumber(fundTransfer.getAccountNumber());
@@ -73,48 +74,59 @@ public class FundTransferController {
                 // For invalid account number, display error message on Fund transfer screen 1
                 if (!errors.isEmpty()) {
                     model.put("errors", errors);
-                    return new ModelAndView("fundTransfer" + page);
+                    return new ModelAndView(fundTransferView);
                 }
                 // For valid account number, redirect to Fund transfer screen 2
-                redirectView = "fundTransfer2";
+                return new ModelAndView("fundTransfer2");
             } else {
                 // If no account number set, redirect to Transaction screen
                 redirectView = "transaction";
             }
-        } else if ("2".equals(page)) {
-            // Validate insufficient balance
-            BigDecimal transferAmount = new BigDecimal(fundTransfer.getTransferAmount());
+        } else if (FundTransfer.Page.FUND_TRANSFER_PAGE_2.toString().equals(page)) {
+            if (fundTransfer.getTransferAmount() != null && !"".equals(fundTransfer.getTransferAmount().trim())) {
+                // Validate insufficient balance
+                BigDecimal transferAmount = new BigDecimal(fundTransfer.getTransferAmount());
 
-            // Validate the balance is sufficient
-            if (account.getBalance().compareTo(transferAmount) == -1) {
-                errors.add(String.format(Withdraw.ERROR_MESSAGE_INSUFFICIENT_BALANCE, transferAmount));
+                // Validate the balance is sufficient
+                if (account.getBalance().compareTo(transferAmount) == -1) {
+                    errors.add(String.format(Withdraw.ERROR_MESSAGE_INSUFFICIENT_BALANCE, transferAmount));
+                }
+
+                // Return to withdraw screen if the balance is insufficient
+                if (!errors.isEmpty()) {
+                    model.put("errors", errors);
+                    return new ModelAndView(fundTransferView);
+                }
+
+                // Auto-generate reference number (random 6 digits number)
+                fundTransfer.setReferenceNumber(String.valueOf(NumericUtil.getRandomNumberInts(111111, 999999)));
+                model.addAttribute(FundTransfer.Metadata.MODEL, fundTransfer);
+                return new ModelAndView("fundTransfer3", model);
+            } else {
+                // If no transfer amount set, redirect to Transaction screen
+                redirectView = "transaction";
             }
-
-            // Return to withdraw screen if the balance is insufficient
-            if (!errors.isEmpty()) {
-                model.put("errors", errors);
-                return new ModelAndView("fundTransfer2");
+        } else if (FundTransfer.Page.FUND_TRANSFER_PAGE_3.toString().equals(page)) {
+            if (fundTransfer.getReferenceNumber() != null && !"".equals(fundTransfer.getReferenceNumber().trim())) {
+                model.addAttribute(FundTransfer.Metadata.MODEL, fundTransfer);
+                return new ModelAndView("fundTransfer4", model);
+            } else {
+                // If no reference number set, redirect to Transaction screen
+                redirectView = "transaction";
             }
-
-            redirectView = "fundTransfer3";
-        } else if ("3".equals(page)) {
-            redirectView = "fundTransfer4";
-        } else if ("4".equals(page)) {
+        } else if (FundTransfer.Page.FUND_TRANSFER_PAGE_4.toString().equals(page)) {
             if (FundTransfer.Option.CONFIRM_TRX.toString().equalsIgnoreCase(fundTransfer.getOption())) {
                 // When the balance is sufficient, deduct the user balance
                 BigDecimal transferAmount = new BigDecimal(fundTransfer.getTransferAmount());
-                BigDecimal balance = account.getBalance();
-                BigDecimal newBalance = balance.subtract(transferAmount);
-                account.setBalance(newBalance);
-                service.updateAccount(account);
+                service.fundTransfer(account.getAccountNumber(), fundTransfer.getAccountNumber(), transferAmount);
 
                 // Populate withdraw summary details and go to Summary screen
-                FundTransferSummary summary = new FundTransferSummary();
-                summary.setAccountNumber(fundTransfer.getAccountNumber());
-                summary.setBalance(NumericUtil.getPlainCurrencyFormat(account.getBalance()));
-                summary.setTransferAmount(NumericUtil.getPlainCurrencyFormat(transferAmount));
-                summary.setReferenceNumber(fundTransfer.getReferenceNumber());
-                model.put(Summary.Metadata.MODEL, summary);
+                FundTransferSummary fundTransferSummary = new FundTransferSummary();
+                fundTransferSummary.setAccountNumber(fundTransfer.getAccountNumber());
+                fundTransferSummary.setBalance(NumericUtil.getPlainCurrencyFormat(account.getBalance()));
+                fundTransferSummary.setTransferAmount(NumericUtil.getPlainCurrencyFormat(transferAmount));
+                fundTransferSummary.setReferenceNumber(fundTransfer.getReferenceNumber());
+                model.addAttribute(FundTransferSummary.Metadata.MODEL, fundTransferSummary);
                 return new ModelAndView("redirect:/fundTransferSummary", model);
             } else {
                 // Cancel fund transfer and redirect to transaction screen

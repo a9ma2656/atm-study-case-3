@@ -21,22 +21,25 @@
         <tr>
             <td>Destination Account</td>
             <td>:</td>
-            <td><form:label path="accountNumber"/></td>
+            <td><form:input path="accountNumber" readonly="true"
+                            style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Transfer Amount</td>
             <td>:</td>
-            <td>$<form:label path="transferAmount"/></td>
+            <td>$<form:input path="transferAmount" readonly="true"
+                             style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Reference Number</td>
             <td>:</td>
-            <td><form:label path="referenceNumber"/></td>
+            <td><form:input path="referenceNumber" readonly="true"
+                            style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Balance</td>
             <td>:</td>
-            <td>$<form:label path="balance"/></td>
+            <td>$<form:input path="balance" readonly="true" style="border: none; background-color: transparent;"/></td>
         </tr>
     </table>
     <table>

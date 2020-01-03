@@ -9,6 +9,20 @@ import com.cdc.atm.web.validator.*;
  */
 public class FundTransfer {
 
+    public enum Page {
+        FUND_TRANSFER_PAGE_1("1"), FUND_TRANSFER_PAGE_2("2"), FUND_TRANSFER_PAGE_3("3"), FUND_TRANSFER_PAGE_4("4");
+        private String page;
+
+        Page(String page) {
+            this.page = page;
+        }
+
+        @Override
+        public String toString() {
+            return page == null || "".equals(page) ? FUND_TRANSFER_PAGE_1.toString() : page;
+        }
+    }
+
     public enum Option {
         CONFIRM_TRX(1), CANCEL_TRX(2);
         private int option;
@@ -38,6 +52,7 @@ public class FundTransfer {
     @Min(message = "Minimum amount to withdraw is $1", value = "1")
     private String transferAmount;
 
+    @Size(min = 6, max = 6, message = "Invalid Reference Number")
     @Numeric(message = "Invalid Reference Number")
     private String referenceNumber;
 

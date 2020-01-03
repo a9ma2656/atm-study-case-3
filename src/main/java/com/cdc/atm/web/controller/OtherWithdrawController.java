@@ -77,18 +77,15 @@ public class OtherWithdrawController {
             return new ModelAndView("otherWithdraw");
         }
 
-        // When the balance is sufficient, deduct the user balance
-        BigDecimal balance = account.getBalance();
-        BigDecimal newBalance = balance.subtract(withdrawAmount);
-        account.setBalance(newBalance);
-        service.updateAccount(account);
+        // When the balance is sufficient, deduct the user account balance
+        service.fundWithdraw(account.getAccountNumber(), withdrawAmount);
 
         // Populate withdraw summary details and go to Summary screen
         Summary summary = new Summary();
         summary.setDate(DateUtil.formatDateToString(new Date()));
         summary.setBalance(NumericUtil.getPlainCurrencyFormat(account.getBalance()));
         summary.setWithdraw(NumericUtil.getPlainCurrencyFormat(withdrawAmount));
-        model.put(Summary.Metadata.MODEL, summary);
+        model.addAttribute(Summary.Metadata.MODEL, summary);
         return new ModelAndView("redirect:/summary", model);
     }
 }

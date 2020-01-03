@@ -11,7 +11,7 @@
 <body>
 <div style="color: darkred">${errors}</div>
 <form:form method="POST" action="/fundTransfer" modelAttribute="<%=FundTransfer.Metadata.MODEL%>">
-    <input id="page" name="page" type="hidden" value="3"/>
+    <input id="page" name="page" type="hidden" value="<%=FundTransfer.Page.FUND_TRANSFER_PAGE_3.toString()%>"/>
     <form:hidden path="accountNumber"/>
     <form:hidden path="transferAmount"/>
     <table>

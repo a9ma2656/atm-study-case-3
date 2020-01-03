@@ -21,17 +21,17 @@
         <tr>
             <td>Date</td>
             <td>:</td>
-            <td><form:label path="date"/></td>
+            <td><form:input path="date" readonly="true" style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Withdraw</td>
             <td>:</td>
-            <td>$<form:label path="withdraw"/></td>
+            <td>$<form:input path="withdraw" readonly="true" style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Balance</td>
             <td>:</td>
-            <td>$<form:label path="balance"/></td>
+            <td>$<form:input path="balance" readonly="true" style="border: none; background-color: transparent;"/></td>
         </tr>
     </table>
     <table>

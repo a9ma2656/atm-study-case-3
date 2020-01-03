@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 /**
  * The implementation of WelcomeService
  *
@@ -47,5 +49,37 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account updateAccount(Account account) {
         return repository.save(account);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional
+    @Override
+    public Account fundWithdraw(String accountNumber, BigDecimal withdrawAmount) {
+        Account account = repository.findByAccountNumber(accountNumber);
+        BigDecimal newAccountBalance = account.getBalance().subtract(withdrawAmount);
+        account.setBalance(newAccountBalance);
+        return repository.save(account);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional
+    @Override
+    public Account fundTransfer(String sourceAccountNumber, String destAccountNumber, BigDecimal transferAmount) {
+        Account sourceAccount = repository.findByAccountNumber(sourceAccountNumber);
+        Account destAccount = repository.findByAccountNumber(destAccountNumber);
+
+        // Calculate new balance
+        BigDecimal newSourceAccountBalance = sourceAccount.getBalance().subtract(transferAmount);
+        BigDecimal newDestAccountBalance = destAccount.getBalance().add(transferAmount);
+
+        sourceAccount.setBalance(newSourceAccountBalance);
+        destAccount.setBalance(newDestAccountBalance);
+
+        repository.save(destAccount);
+        return repository.save(sourceAccount);
     }
 }

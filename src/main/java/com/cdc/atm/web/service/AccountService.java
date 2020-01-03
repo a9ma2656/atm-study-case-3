@@ -2,6 +2,8 @@ package com.cdc.atm.web.service;
 
 import com.cdc.atm.web.model.Account;
 
+import java.math.BigDecimal;
+
 public interface AccountService {
     /**
      * To validate user account and PIN
@@ -32,4 +34,28 @@ public interface AccountService {
      * @return Account entity
      */
     Account updateAccount(Account account);
+
+    /**
+     * To perform fund withdraw
+     * 
+     * @param accountNumber
+     *            the account number
+     * @param withdrawAmount
+     *            the withdraw amount
+     * @return the updated account details
+     */
+    Account fundWithdraw(String accountNumber, BigDecimal withdrawAmount);
+
+    /**
+     * To perform fund transfer
+     *
+     * @param sourceAccountNumber
+     *            the source account number
+     * @param destAccountNumber
+     *            the destination account number
+     * @param transferAmount
+     *            the transfer amount
+     * @return the updated source account details
+     */
+    Account fundTransfer(String sourceAccountNumber, String destAccountNumber, BigDecimal transferAmount);
 }

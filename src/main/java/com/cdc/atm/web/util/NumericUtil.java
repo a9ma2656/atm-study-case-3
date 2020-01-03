@@ -2,6 +2,7 @@ package com.cdc.atm.web.util;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Random;
 
 /**
  * Numeric Utility class
@@ -21,5 +22,10 @@ public class NumericUtil {
             return "";
         }
         return (v.compareTo(new BigDecimal(0)) == -1) ? ("(" + df.format(v.abs()) + ")") : df.format(v);
+    }
+
+    public static int getRandomNumberInts(int min, int max) {
+        Random random = new Random();
+        return random.ints(min, (max + 1)).findFirst().getAsInt();
     }
 }

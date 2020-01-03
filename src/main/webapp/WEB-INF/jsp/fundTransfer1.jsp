@@ -11,15 +11,13 @@
 <body>
 <div style="color: darkred">${errors}</div>
 <form:form method="POST" action="/fundTransfer" modelAttribute="<%=FundTransfer.Metadata.MODEL%>">
-    <input id="page" name="page" type="hidden" value="1"/>
+    <input id="page" name="page" type="hidden" value="<%=FundTransfer.Page.FUND_TRANSFER_PAGE_1.toString()%>"/>
     <table>
         <tr>
             <td colspan="2" height="50">&nbsp;</td>
         </tr>
         <tr>
-            <td>Please enter destination account and press enter to continue or
-                press enter to go back to Transaction:
-            </td>
+            <td>Please enter destination account and press enter to continue or press enter to go back to Transaction:</td>
             <td><form:input path="accountNumber"/></td>
         </tr>
         <tr>

@@ -11,28 +11,31 @@
 <body>
 <div style="color: darkred">${errors}</div>
 <form:form method="POST" action="/fundTransfer" modelAttribute="<%=FundTransfer.Metadata.MODEL%>">
-    <input id="page" name="page" type="hidden" value="4"/>
-    <form:hidden path="accountNumber"/>
-    <form:hidden path="transferAmount"/>
-    <form:hidden path="referenceNumber"/>
+    <input id="page" name="page" type="hidden" value="<%=FundTransfer.Page.FUND_TRANSFER_PAGE_4.toString()%>"/>
     <table>
         <tr>
             <td colspan="3" height="50">&nbsp;</td>
         </tr>
         <tr>
+            <td colspan="3">Transfer Confirmation</td>
+        </tr>
+        <tr>
             <td>Destination Account</td>
             <td>:</td>
-            <td><form:label path="accountNumber"/></td>
+            <td><form:input path="accountNumber" readonly="true"
+                            style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Transfer Amount</td>
             <td>:</td>
-            <td>$<form:label path="transferAmount"/></td>
+            <td>$<form:input path="transferAmount" readonly="true"
+                             style="border: none; background-color: transparent;"/></td>
         </tr>
         <tr>
             <td>Reference Number</td>
             <td>:</td>
-            <td><form:label path="referenceNumber"/></td>
+            <td><form:input path="referenceNumber" readonly="true"
+                            style="border: none; background-color: transparent;"/></td>
         </tr>
     </table>
     <table>
