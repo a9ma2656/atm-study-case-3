@@ -21,19 +21,19 @@
             <td>Destination Account</td>
             <td>:</td>
             <td><form:input path="accountNumber" readonly="true"
-                            style="border: none; background-color: transparent;"/></td>
+                            style="border: none; background-color: transparent; padding-left: 0px;"/></td>
         </tr>
         <tr>
             <td>Transfer Amount</td>
             <td>:</td>
             <td>$<form:input path="transferAmount" readonly="true"
-                             style="border: none; background-color: transparent;"/></td>
+                             style="border: none; background-color: transparent; padding-left: 0px;"/></td>
         </tr>
         <tr>
             <td>Reference Number</td>
             <td>:</td>
             <td><form:input path="referenceNumber" readonly="true"
-                            style="border: none; background-color: transparent;"/></td>
+                            style="border: none; background-color: transparent; padding-left: 0px;"/></td>
         </tr>
         <tr>
             <td colspan="3">&nbsp;</td>

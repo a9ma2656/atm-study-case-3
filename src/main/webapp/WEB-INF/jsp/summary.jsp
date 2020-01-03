@@ -19,17 +19,17 @@
         <tr>
             <td>Date</td>
             <td>:</td>
-            <td><form:input path="date" readonly="true" style="border: none; background-color: transparent;"/></td>
+            <td><form:input path="date" readonly="true" style="border: none; background-color: transparent; padding-left: 0px;"/></td>
         </tr>
         <tr>
             <td>Withdraw</td>
             <td>:</td>
-            <td>$<form:input path="withdraw" readonly="true" style="border: none; background-color: transparent;"/></td>
+            <td>$<form:input path="withdraw" readonly="true" style="border: none; background-color: transparent; padding-left: 0px;"/></td>
         </tr>
         <tr>
             <td>Balance</td>
             <td>:</td>
-            <td>$<form:input path="balance" readonly="true" style="border: none; background-color: transparent;"/></td>
+            <td>$<form:input path="balance" readonly="true" style="border: none; background-color: transparent; padding-left: 0px;"/></td>
         </tr>
         <tr>
             <td colspan="3">&nbsp;</td>
