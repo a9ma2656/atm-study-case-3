@@ -18,10 +18,13 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
+    enabled: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  main:
+    allow-bean-definition-overriding: true
 
 atm:
   application:
@@ -34,7 +37,11 @@ spring:
 ---
 spring:
   profiles: test
+  jpa:
+    show-sql: false
 
 ---
 spring:
   profiles: prod
+  jpa:
+    show-sql: false

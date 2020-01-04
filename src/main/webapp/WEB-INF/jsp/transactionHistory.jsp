@@ -58,8 +58,8 @@
                     <td>${trxObject.accountNumber}</td>
                     <td>${trxObject.trxDate}</td>
                     <td>${trxObject.trxType}</td>
-                    <td>${trxObject.amount}</td>
-                    <td>${trxObject.balance}</td>
+                    <td>$${trxObject.amount}</td>
+                    <td>$${trxObject.balance}</td>
                     <td>${trxObject.destinationAccountNumber}</td>
                     <td>${trxObject.referenceNumber}</td>
                 </tr>

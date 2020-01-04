@@ -6,7 +6,8 @@ body {
 
 th {
     font: 13px Verdana;
-    color: #000000;
+    color: #ffffff;
+    padding: 5px;
 }
 
 td {
