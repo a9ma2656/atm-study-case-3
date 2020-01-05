@@ -1,4 +1,4 @@
-package com.cdc.atm.web.controller;
+package com.cdc.atm.web.integration;
 
 import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.TransactionHistory;

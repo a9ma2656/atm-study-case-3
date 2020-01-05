@@ -1,4 +1,4 @@
-package com.cdc.atm.web.controller;
+package com.cdc.atm.web.integration;
 
 import java.util.ArrayList;
 import java.util.List;

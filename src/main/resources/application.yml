@@ -33,10 +33,18 @@ atm:
 ---
 spring:
   profiles: dev
+  liquibase:
+    contexts: dev
 
 ---
 spring:
   profiles: test
+  liquibase:
+    contexts: test
+
+---
+spring:
+  profiles: uat
   jpa:
     show-sql: false
 
