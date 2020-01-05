@@ -67,6 +67,27 @@
             </tbody>
         </table>
     </c:if>
+    <c:if test="${empty listTransactions}">
+        <br/>
+        <table class="table-form">
+            <thead class="table-header">
+            <tr>
+                <th>Account Number</th>
+                <th>Transaction Date</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Balance</th>
+                <th>Destination Account Number</th>
+                <th>Reference Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="7" align="center">No data transactions</td>
+            </tr>
+            </tbody>
+        </table>
+    </c:if>
 </form:form>
 </body>
 
