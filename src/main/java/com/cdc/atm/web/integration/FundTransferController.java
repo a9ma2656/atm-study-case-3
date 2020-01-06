@@ -10,6 +10,7 @@ import com.cdc.atm.web.component.AccountComponent;
 import com.cdc.atm.web.model.*;
 import com.cdc.atm.web.model.entity.Account;
 import com.cdc.atm.web.service.AccountService;
+import com.cdc.atm.web.service.TransactionService;
 import com.cdc.atm.web.util.NumericUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,12 +30,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class FundTransferController {
 
-    private AccountService   service;
-    private AccountComponent accountComponent;
+    private AccountService     accountService;
+    private TransactionService trxService;
+    private AccountComponent   accountComponent;
 
     @Autowired
-    public FundTransferController(AccountService service, AccountComponent accountComponent) {
-        this.service = service;
+    public FundTransferController(AccountService accountService, TransactionService trxService,
+            AccountComponent accountComponent) {
+        this.accountService = accountService;
+        this.trxService = trxService;
         this.accountComponent = accountComponent;
     }
 
@@ -64,14 +68,14 @@ public class FundTransferController {
         }
 
         // Get account details
-        Account account = service.findByAccountNumber(accountComponent.getAccountNumber());
+        Account account = accountService.findByAccountNumber(accountComponent.getAccountNumber());
 
         String redirectView;
         // Handling request per screen
         if (FundTransfer.Page.FUND_TRANSFER_PAGE_1.toString().equals(page)) {
             if (fundTransfer.getAccountNumber() != null && !"".equals(fundTransfer.getAccountNumber().trim())) {
                 // Validate account exists and does not equal to source account
-                Account targetAccount = service.findByAccountNumber(fundTransfer.getAccountNumber());
+                Account targetAccount = accountService.findByAccountNumber(fundTransfer.getAccountNumber());
                 if (targetAccount == null
                         || accountComponent.getAccountNumber().equals(targetAccount.getAccountNumber())) {
                     errors.add("Invalid account");
@@ -123,7 +127,7 @@ public class FundTransferController {
             if (FundTransfer.Option.CONFIRM_TRX.toString().equalsIgnoreCase(fundTransfer.getOption())) {
                 // When the balance is sufficient, deduct the user balance
                 BigDecimal transferAmount = new BigDecimal(fundTransfer.getTransferAmount());
-                service.fundTransfer(account.getAccountNumber(), fundTransfer.getAccountNumber(), transferAmount,
+                trxService.fundTransfer(account.getAccountNumber(), fundTransfer.getAccountNumber(), transferAmount,
                         fundTransfer.getReferenceNumber());
 
                 // Populate withdraw summary details and go to Summary screen

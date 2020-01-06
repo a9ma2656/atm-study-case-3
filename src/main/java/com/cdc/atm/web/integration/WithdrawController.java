@@ -5,6 +5,7 @@ import com.cdc.atm.web.model.entity.Account;
 import com.cdc.atm.web.model.Summary;
 import com.cdc.atm.web.model.Withdraw;
 import com.cdc.atm.web.service.AccountService;
+import com.cdc.atm.web.service.TransactionService;
 import com.cdc.atm.web.util.DateUtil;
 import com.cdc.atm.web.util.NumericUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,15 @@ import java.util.List;
 @Controller
 public class WithdrawController {
 
-    private AccountService   service;
-    private AccountComponent accountComponent;
+    private AccountService     accountService;
+    private TransactionService trxService;
+    private AccountComponent   accountComponent;
 
     @Autowired
-    public WithdrawController(AccountService service, AccountComponent accountComponent) {
-        this.service = service;
+    public WithdrawController(AccountService accountService, TransactionService trxService,
+            AccountComponent accountComponent) {
+        this.accountService = accountService;
+        this.trxService = trxService;
         this.accountComponent = accountComponent;
     }
 
@@ -68,7 +72,7 @@ public class WithdrawController {
                 || Withdraw.Option.DEDUCT_HUNDRED_DOLLARS.toString().equalsIgnoreCase(withdraw.getOption())) {
             // Check insufficient Balance
             String accountNumber = accountComponent.getAccountNumber();
-            Account account = service.findByAccountNumber(accountNumber);
+            Account account = accountService.findByAccountNumber(accountNumber);
 
             // Get the selected withdraw
             BigDecimal withdrawAmount;
@@ -92,7 +96,7 @@ public class WithdrawController {
             }
 
             // When the balance is sufficient, deduct the user account balance
-            service.fundWithdraw(account.getAccountNumber(), withdrawAmount);
+            trxService.fundWithdraw(account.getAccountNumber(), withdrawAmount);
 
             // Populate withdraw summary details and go to Summary screen
             Summary summary = new Summary();

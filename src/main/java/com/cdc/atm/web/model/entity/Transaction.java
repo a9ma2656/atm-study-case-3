@@ -2,7 +2,7 @@ package com.cdc.atm.web.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Transaction persistent object
@@ -29,28 +29,28 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long       id;
+    private Long          id;
 
     @Column(name = "account_number")
-    private String     accountNumber;
+    private String        accountNumber;
 
     @Column(name = "trx_date")
-    private Date       trxDate;
+    private LocalDateTime trxDate;
 
     @Column(name = "trx_type")
-    private String     trxType;
+    private String        trxType;
 
     @Column(name = "amount")
-    private BigDecimal amount;
+    private BigDecimal    amount;
 
     @Column(name = "balance")
-    private BigDecimal balance;
+    private BigDecimal    balance;
 
     @Column(name = "destination_account_number")
-    private String     destinationAccountNumber;
+    private String        destinationAccountNumber;
 
     @Column(name = "reference_number")
-    private String     referenceNumber;
+    private String        referenceNumber;
 
     public Long getId() {
         return id;
@@ -68,11 +68,11 @@ public class Transaction {
         this.accountNumber = accountNumber;
     }
 
-    public Date getTrxDate() {
+    public LocalDateTime getTrxDate() {
         return trxDate;
     }
 
-    public void setTrxDate(Date trxDate) {
+    public void setTrxDate(LocalDateTime trxDate) {
         this.trxDate = trxDate;
     }
 

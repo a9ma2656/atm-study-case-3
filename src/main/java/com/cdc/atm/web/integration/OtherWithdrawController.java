@@ -13,6 +13,7 @@ import com.cdc.atm.web.model.OtherWithdraw;
 import com.cdc.atm.web.model.Summary;
 import com.cdc.atm.web.model.Withdraw;
 import com.cdc.atm.web.service.AccountService;
+import com.cdc.atm.web.service.TransactionService;
 import com.cdc.atm.web.util.DateUtil;
 import com.cdc.atm.web.util.NumericUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class OtherWithdrawController {
 
-    private AccountService   service;
-    private AccountComponent accountComponent;
+    private AccountService     accountService;
+    private TransactionService trxService;
+    private AccountComponent   accountComponent;
 
     @Autowired
-    public OtherWithdrawController(AccountService service, AccountComponent accountComponent) {
-        this.service = service;
+    public OtherWithdrawController(AccountService accountService, TransactionService trxService,
+            AccountComponent accountComponent) {
+        this.accountService = accountService;
+        this.trxService = trxService;
         this.accountComponent = accountComponent;
     }
 
@@ -72,7 +76,7 @@ public class OtherWithdrawController {
 
         // Check insufficient Balance
         String accountNumber = accountComponent.getAccountNumber();
-        Account account = service.findByAccountNumber(accountNumber);
+        Account account = accountService.findByAccountNumber(accountNumber);
 
         BigDecimal withdrawAmount = new BigDecimal(otherWithdraw.getWithdraw());
         // Validate the balance is sufficient
@@ -87,7 +91,7 @@ public class OtherWithdrawController {
         }
 
         // When the balance is sufficient, deduct the user account balance
-        service.fundWithdraw(account.getAccountNumber(), withdrawAmount);
+        trxService.fundWithdraw(account.getAccountNumber(), withdrawAmount);
 
         // Populate withdraw summary details and go to Summary screen
         Summary summary = new Summary();

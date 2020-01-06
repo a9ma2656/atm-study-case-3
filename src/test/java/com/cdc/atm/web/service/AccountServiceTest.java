@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.*;
 public class AccountServiceTest {
 
     @Autowired
-    private AccountService    service;
+    private TransactionService service;
 
     @Autowired
-    private AccountRepository repository;
+    private AccountRepository  repository;
 
     /**
      * When creating a withdraw transaction to an account, this account is expected
