@@ -17,7 +17,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.xml
+    change-log: classpath:/db/changelog/${atm.database.liquibase.schema:db.changelog-master.xml}
     enabled: true
   mvc:
     view:
@@ -41,6 +41,9 @@ spring:
   profiles: test
   liquibase:
     contexts: test
+atm:
+  database:
+    dbname: atm-test
 
 ---
 spring:

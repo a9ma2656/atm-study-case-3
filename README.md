@@ -18,9 +18,17 @@ These instructions will get you a copy of the project up and running on your loc
    $ git clone -b master git@github.com:a9ma2656/atm-study-case-3.git
    ~~~
 2. Create database
+   
+   For application:
    ~~~shell script
    $ create database atm
    ~~~
+   
+   For test:
+   ~~~shell script
+   $ create database atm-test
+   ~~~
+   
 3. Build and run the app using maven
 
    **Build Command**
@@ -43,6 +51,10 @@ These instructions will get you a copy of the project up and running on your loc
    | --- | --- | --- | --- |
    | atm.database.username | The database username | root | |
    | atm.database.password | The database password | password | |
+   | atm.database.server | The database server | 127.0.0.1 | |
+   | atm.database.port | The database port | 3306 | |
+   | atm.database.dbname | The database name | atm | `test` profile will set the database name to `atm-test` |
+   | atm.database.liquibase.schema | The database schema definition settings | db.changelog-master.xml | |
 
 4. Health Check
    ~~~shell script
@@ -51,6 +63,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Running Tests
 Explain how to run the automated tests for this system
+
+Run all tests:
+
+1. Right click on `java` test package
+2. Run `All Tests`
+
+Run single test:
+1. Right click on a test e.g. `WithdrawIntegrationTest.java`
+2. Run `WithdrawIntegrationTest`
 
 ### Deployment
 TBA
